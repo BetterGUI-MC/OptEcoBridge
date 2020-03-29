@@ -5,17 +5,17 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>me.hsgamer.bettergui</groupId>
-  <artifactId>ExampleAddon</artifactId>
+  <artifactId>OptEcoBridge</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>ExampleAddon</name>
-  <description>An Example addon for BetterGUI</description>
+  <name>OptEcoBridge</name>
+  <description>Hook to OptEco</description>
 
   <properties>
     <java.version>1.8</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.mainClass>me.hsgamer.bettergui.exampleaddon.ExampleAddon</project.mainClass>
+    <project.mainClass>me.hsgamer.bettergui.optecobridge.Main</project.mainClass>
   </properties>
 
   <build>
@@ -86,6 +86,13 @@
       <artifactId>BetterGUI</artifactId>
       <version>1.6</version>
       <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.playernguyen</groupId>
+      <artifactId>OptEco</artifactId>
+      <version>1.4.5b</version>
+      <scope>system</scope>
+      <systemPath>${basedir}/lib/OptEco.jar</systemPath>
     </dependency>
   </dependencies>
 </project>
