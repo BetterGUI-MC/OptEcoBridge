@@ -11,7 +11,7 @@ import me.hsgamer.bettergui.util.Validate;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class GivePointsCommand extends Command {
+public final class GivePointsCommand extends Command {
 
   public GivePointsCommand(String string) {
     super(string);

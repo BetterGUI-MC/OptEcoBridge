@@ -14,7 +14,8 @@ import me.hsgamer.bettergui.util.ExpressionUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class PointIconRequirement extends Requirement<Object, Double> implements IconVariable {
+public final class PointIconRequirement extends Requirement<Object, Double> implements
+    IconVariable {
 
   private final Map<UUID, Double> checked = new HashMap<>();
 

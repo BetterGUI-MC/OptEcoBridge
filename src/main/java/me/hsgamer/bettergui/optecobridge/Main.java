@@ -20,7 +20,6 @@ public final class Main extends Addon {
 
   @Override
   public void onEnable() {
-    OptEcoBridge.setupPlugin();
     RequirementBuilder.register("point", PointIconRequirement.class);
     CommandBuilder.register("give-point:", GivePointsCommand.class);
     VariableManager.register("points", (player, s) -> String
