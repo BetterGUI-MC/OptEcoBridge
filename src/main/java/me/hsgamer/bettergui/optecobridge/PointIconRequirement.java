@@ -7,15 +7,14 @@ import java.util.UUID;
 import me.hsgamer.bettergui.BetterGUI;
 import me.hsgamer.bettergui.config.impl.MessageConfig.DefaultMessage;
 import me.hsgamer.bettergui.object.Icon;
-import me.hsgamer.bettergui.object.IconVariable;
+import me.hsgamer.bettergui.object.LocalVariable;
 import me.hsgamer.bettergui.object.Requirement;
 import me.hsgamer.bettergui.util.CommonUtils;
 import me.hsgamer.bettergui.util.ExpressionUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public final class PointIconRequirement extends Requirement<Object, Double> implements
-    IconVariable {
+public final class PointIconRequirement extends Requirement<Object, Double> implements LocalVariable<Icon> {
 
   private final Map<UUID, Double> checked = new HashMap<>();
 
@@ -61,7 +60,7 @@ public final class PointIconRequirement extends Requirement<Object, Double> impl
   }
 
   @Override
-  public Optional<Icon> getIconInvolved() {
+  public Optional<Icon> getInvolved() {
     return getIcon();
   }
 
