@@ -2,19 +2,18 @@ package me.hsgamer.bettergui.optecobridge;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
 import me.hsgamer.bettergui.BetterGUI;
 import me.hsgamer.bettergui.config.impl.MessageConfig.DefaultMessage;
-import me.hsgamer.bettergui.object.Icon;
 import me.hsgamer.bettergui.object.LocalVariable;
+import me.hsgamer.bettergui.object.LocalVariableManager;
 import me.hsgamer.bettergui.object.Requirement;
 import me.hsgamer.bettergui.util.CommonUtils;
 import me.hsgamer.bettergui.util.ExpressionUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public final class PointIconRequirement extends Requirement<Object, Double> implements LocalVariable<Icon> {
+public final class PointIconRequirement extends Requirement<Object, Double> implements LocalVariable {
 
   private final Map<UUID, Double> checked = new HashMap<>();
 
@@ -60,8 +59,8 @@ public final class PointIconRequirement extends Requirement<Object, Double> impl
   }
 
   @Override
-  public Optional<Icon> getInvolved() {
-    return getIcon();
+  public LocalVariableManager<?> getInvolved() {
+    return getVariableManager();
   }
 
   @Override
