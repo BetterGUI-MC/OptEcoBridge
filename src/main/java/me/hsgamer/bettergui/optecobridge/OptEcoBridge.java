@@ -1,6 +1,6 @@
 package me.hsgamer.bettergui.optecobridge;
 
-import me.playernguyen.api.OptEcoAPI;
+import me.playernguyen.opteco.api.OptEcoAPI;
 import org.bukkit.entity.Player;
 
 public final class OptEcoBridge {

@@ -13,7 +13,8 @@ import me.hsgamer.bettergui.util.ExpressionUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public final class PointIconRequirement extends Requirement<Object, Double> implements LocalVariable {
+public final class PointIconRequirement extends Requirement<Object, Double> implements
+    LocalVariable {
 
   private final Map<UUID, Double> checked = new HashMap<>();
 
