@@ -1,8 +1,7 @@
 package me.hsgamer.bettergui.optecobridge;
 
 import java.util.Objects;
-import me.hsgamer.bettergui.BetterGUI;
-import me.hsgamer.bettergui.config.impl.MessageConfig.DefaultMessage;
+import me.hsgamer.bettergui.config.impl.MessageConfig;
 import me.hsgamer.bettergui.lib.taskchain.TaskChain;
 import me.hsgamer.bettergui.object.Command;
 import me.hsgamer.bettergui.util.CommonUtils;
@@ -26,9 +25,8 @@ public final class GivePointsCommand extends Command {
     } else if (ExpressionUtils.isValidExpression(parsed)) {
       pointsToGive = Objects.requireNonNull(ExpressionUtils.getResult(parsed)).intValue();
     } else {
-      CommonUtils.sendMessage(player,
-          BetterGUI.getInstance().getMessageConfig().get(DefaultMessage.INVALID_NUMBER)
-              .replace("{input}", parsed));
+      CommonUtils
+          .sendMessage(player, MessageConfig.INVALID_NUMBER.getValue().replace("{input}", parsed));
     }
 
     if (pointsToGive > 0) {
