@@ -3,12 +3,12 @@ package me.hsgamer.bettergui.optecobridge;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import me.hsgamer.bettergui.config.impl.MessageConfig;
-import me.hsgamer.bettergui.object.LocalVariable;
-import me.hsgamer.bettergui.object.LocalVariableManager;
+import me.hsgamer.bettergui.config.MessageConfig;
 import me.hsgamer.bettergui.object.Requirement;
-import me.hsgamer.bettergui.util.CommonUtils;
-import me.hsgamer.bettergui.util.ExpressionUtils;
+import me.hsgamer.bettergui.object.variable.LocalVariable;
+import me.hsgamer.bettergui.object.variable.LocalVariableManager;
+import me.hsgamer.bettergui.util.MessageUtils;
+import me.hsgamer.bettergui.util.expression.ExpressionUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -28,7 +28,7 @@ public final class PointIconRequirement extends Requirement<Object, Double> impl
     if (ExpressionUtils.isValidExpression(parsed)) {
       return ExpressionUtils.getResult(parsed).doubleValue();
     } else {
-      CommonUtils
+      MessageUtils
           .sendMessage(player, MessageConfig.INVALID_NUMBER.getValue().replace("{input}", parsed));
       return 0D;
     }

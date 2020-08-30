@@ -20,8 +20,8 @@ public final class Main extends Addon {
 
   @Override
   public void onEnable() {
-    RequirementBuilder.register("point", PointIconRequirement.class);
-    CommandBuilder.register("give-point:", GivePointsCommand.class);
+    RequirementBuilder.register(PointIconRequirement::new, "point");
+    CommandBuilder.register(GivePointsCommand::new, "give-point:");
     VariableManager.register("points", (player, s) -> String
         .valueOf(OptEcoBridge.getPoints(player)));
   }
