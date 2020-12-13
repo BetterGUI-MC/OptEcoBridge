@@ -1,77 +1,68 @@
 package me.hsgamer.bettergui.optecobridge;
 
+import me.hsgamer.bettergui.api.requirement.TakableRequirement;
+import me.hsgamer.bettergui.config.MessageConfig;
+import me.hsgamer.bettergui.lib.core.bukkit.utils.MessageUtils;
+import me.hsgamer.bettergui.lib.core.expression.ExpressionUtils;
+import me.hsgamer.bettergui.lib.core.variable.VariableManager;
+import me.hsgamer.bettergui.manager.PluginVariableManager;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
-import me.hsgamer.bettergui.config.MessageConfig;
-import me.hsgamer.bettergui.object.Requirement;
-import me.hsgamer.bettergui.object.variable.LocalVariable;
-import me.hsgamer.bettergui.object.variable.LocalVariableManager;
-import me.hsgamer.bettergui.util.MessageUtils;
-import me.hsgamer.bettergui.util.expression.ExpressionUtils;
-import org.bukkit.ChatColor;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
 
-public final class PointIconRequirement extends Requirement<Object, Double> implements
-    LocalVariable {
+public final class PointIconRequirement extends TakableRequirement<Double> {
+    private final Map<UUID, Double> checked = new HashMap<>();
 
-  private final Map<UUID, Double> checked = new HashMap<>();
-
-  public PointIconRequirement() {
-    super(true);
-  }
-
-  @Override
-  public Double getParsedValue(Player player) {
-    String parsed = parseFromString(String.valueOf(value).trim(), player);
-    if (ExpressionUtils.isValidExpression(parsed)) {
-      return ExpressionUtils.getResult(parsed).doubleValue();
-    } else {
-      MessageUtils
-          .sendMessage(player, MessageConfig.INVALID_NUMBER.getValue().replace("{input}", parsed));
-      return 0D;
+    public PointIconRequirement(String name) {
+        super(name);
+        PluginVariableManager.register(name, (original, uuid) -> {
+            double points = getParsedValue(uuid);
+            if (points > 0 && !OptEcoBridge.hasPoints(uuid, points)) {
+                return String.valueOf(points);
+            }
+            return MessageConfig.HAVE_MET_REQUIREMENT_PLACEHOLDER.getValue();
+        });
     }
-  }
 
-  @Override
-  public boolean check(Player player) {
-    double points = getParsedValue(player);
-    if (points > 0 && !OptEcoBridge.hasPoints(player, points)) {
-      return false;
-    } else {
-      checked.put(player.getUniqueId(), points);
-      return true;
+    @Override
+    protected boolean getDefaultTake() {
+        return true;
     }
-  }
 
-  @Override
-  public void take(Player player) {
-    if (!OptEcoBridge.takePoints(player, checked.remove(player.getUniqueId()))) {
-      player.sendMessage(ChatColor.RED
-          + "Error: the transaction couldn't be executed. Please inform the staff.");
+    @Override
+    protected Object getDefaultValue() {
+        return "0";
     }
-  }
 
-  @Override
-  public String getIdentifier() {
-    return "require_points";
-  }
-
-  @Override
-  public LocalVariableManager<?> getInvolved() {
-    return getVariableManager();
-  }
-
-  @Override
-  public String getReplacement(OfflinePlayer player, String s) {
-    if (!player.isOnline()) {
-      return "";
+    @Override
+    protected void takeChecked(UUID uuid) {
+        if (!OptEcoBridge.takePoints(uuid, checked.remove(uuid))) {
+            Optional.ofNullable(Bukkit.getPlayer(uuid)).ifPresent(player -> player.sendMessage(ChatColor.RED + "Error: the transaction couldn't be executed. Please inform the staff."));
+        }
     }
-    double points = getParsedValue(player.getPlayer());
-    if (points > 0 && !OptEcoBridge.hasPoints(player, points)) {
-      return String.valueOf(points);
+
+    @Override
+    public Double getParsedValue(UUID uuid) {
+        String parsed = VariableManager.setVariables(String.valueOf(value).trim(), uuid);
+        return Optional.ofNullable(ExpressionUtils.getResult(parsed)).map(BigDecimal::doubleValue).orElseGet(() -> {
+            Optional.ofNullable(Bukkit.getPlayer(uuid)).ifPresent(player -> MessageUtils.sendMessage(player, MessageConfig.INVALID_NUMBER.getValue().replace("{input}", parsed)));
+            return 0D;
+        });
     }
-    return MessageConfig.HAVE_MET_REQUIREMENT_PLACEHOLDER.getValue();
-  }
+
+    @Override
+    public boolean check(UUID uuid) {
+        double points = getParsedValue(uuid);
+        if (points > 0 && !OptEcoBridge.hasPoints(uuid, points)) {
+            return false;
+        } else {
+            checked.put(uuid, points);
+            return true;
+        }
+    }
 }

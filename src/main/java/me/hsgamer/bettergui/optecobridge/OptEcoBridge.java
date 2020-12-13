@@ -1,26 +1,27 @@
 package me.hsgamer.bettergui.optecobridge;
 
 import me.playernguyen.opteco.api.OptEcoAPI;
-import org.bukkit.OfflinePlayer;
+
+import java.util.UUID;
 
 public final class OptEcoBridge {
 
-  private OptEcoBridge() {
-  }
+    private OptEcoBridge() {
+    }
 
-  public static double getPoints(OfflinePlayer player) {
-    return new OptEcoAPI(player.getUniqueId()).getPoints();
-  }
+    public static double getPoints(UUID uuid) {
+        return new OptEcoAPI(uuid).getPoints();
+    }
 
-  public static boolean hasPoints(OfflinePlayer player, double minimum) {
-    return getPoints(player) >= minimum;
-  }
+    public static boolean hasPoints(UUID uuid, double minimum) {
+        return getPoints(uuid) >= minimum;
+    }
 
-  public static boolean takePoints(OfflinePlayer player, double points) {
-    return new OptEcoAPI(player.getUniqueId()).takePoints(points);
-  }
+    public static boolean takePoints(UUID uuid, double points) {
+        return new OptEcoAPI(uuid).takePoints(points);
+    }
 
-  public static boolean givePoints(OfflinePlayer player, double points) {
-    return new OptEcoAPI(player.getUniqueId()).addPoints(points);
-  }
+    public static boolean givePoints(UUID uuid, double points) {
+        return new OptEcoAPI(uuid).addPoints(points);
+    }
 }
