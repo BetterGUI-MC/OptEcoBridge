@@ -15,10 +15,10 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
-public final class PointIconRequirement extends TakableRequirement<Double> {
+public final class PointRequirement extends TakableRequirement<Double> {
     private final Map<UUID, Double> checked = new HashMap<>();
 
-    public PointIconRequirement(String name) {
+    public PointRequirement(String name) {
         super(name);
         PluginVariableManager.register(name, (original, uuid) -> {
             double points = getParsedValue(uuid);

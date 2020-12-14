@@ -20,7 +20,7 @@ public final class Main extends BetterGUIAddon {
 
     @Override
     public void onEnable() {
-        RequirementBuilder.INSTANCE.register(PointIconRequirement::new, "point");
+        RequirementBuilder.INSTANCE.register(PointRequirement::new, "point");
         ActionBuilder.INSTANCE.register(GivePointsAction::new, "give-point", "givepoint");
         VariableManager.register("points", (original, uuid) -> String.valueOf(OptEcoBridge.getPoints(uuid)));
     }
