@@ -95,7 +95,7 @@
         <dependency>
             <groupId>com.github.PlayerNguyen</groupId>
             <artifactId>OptEco</artifactId>
-            <version>2.1b</version>
+            <version>2.1.1b</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
