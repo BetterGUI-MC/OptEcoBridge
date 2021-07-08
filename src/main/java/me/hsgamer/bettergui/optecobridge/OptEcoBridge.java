@@ -1,6 +1,6 @@
 package me.hsgamer.bettergui.optecobridge;
 
-import me.playernguyen.opteco.api.OptEcoAPI;
+import me.playernguyen.opteco.OptEco;
 
 import java.util.UUID;
 
@@ -10,7 +10,7 @@ public final class OptEcoBridge {
     }
 
     public static double getPoints(UUID uuid) {
-        return new OptEcoAPI(uuid).getPoints();
+        return OptEco.getInstance().getApplicationInterface().getPoints(uuid);
     }
 
     public static boolean hasPoints(UUID uuid, double minimum) {
@@ -18,10 +18,10 @@ public final class OptEcoBridge {
     }
 
     public static boolean takePoints(UUID uuid, double points) {
-        return new OptEcoAPI(uuid).takePoints(points);
+        return OptEco.getInstance().getApplicationInterface().takePoints(uuid, points);
     }
 
     public static boolean givePoints(UUID uuid, double points) {
-        return new OptEcoAPI(uuid).addPoints(points);
+        return OptEco.getInstance().getApplicationInterface().addPoints(uuid, points);
     }
 }

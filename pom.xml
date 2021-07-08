@@ -6,7 +6,7 @@
 
     <groupId>me.hsgamer.bettergui</groupId>
     <artifactId>OptEcoBridge</artifactId>
-    <version>2.0</version>
+    <version>3.0</version>
     <packaging>jar</packaging>
 
     <name>OptEcoBridge</name>
@@ -73,10 +73,6 @@
             <id>codemc-snapshots</id>
             <url>https://repo.codemc.io/repository/maven-snapshots/</url>
         </repository>
-        <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
     </repositories>
 
     <dependencies>
@@ -89,14 +85,15 @@
         <dependency>
             <groupId>me.HSGamer</groupId>
             <artifactId>BetterGUI</artifactId>
-            <version>5.1</version>
+            <version>6.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.github.PlayerNguyen</groupId>
             <artifactId>OptEco</artifactId>
-            <version>2.1b</version>
-            <scope>provided</scope>
+            <version>2.1.3b</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/OptEco.jar</systemPath>
         </dependency>
     </dependencies>
 </project>
